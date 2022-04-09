@@ -16,5 +16,7 @@
 
 [https://developers.google.com/ml-kit/vision/face-detection/android](https://developers.google.com/ml-kit/vision/face-detection/android)
 
+https://developer.chrome.com/docs/extensions/mv3/content_scripts/#programmatic
+
 ### Project Proposal Presentation 
 https://docs.google.com/presentation/d/1LE6-_18w0pTD2-HSeKQyGohceDyNkR9ghi07xZhlWTc/edit?usp=sharing
