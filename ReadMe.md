@@ -18,5 +18,12 @@
 
 https://developer.chrome.com/docs/extensions/mv3/content_scripts/#programmatic
 
+Face Detection - 
+
+https://github.com/rajeshpachaikani/face-detection-opencv-js - Youtube video code
+
+https://docs.opencv.org/4.x/df/d6c/tutorial_js_face_detection_camera.html - OpenCV DOcumentation
+
+
 ### Project Proposal Presentation 
 https://docs.google.com/presentation/d/1LE6-_18w0pTD2-HSeKQyGohceDyNkR9ghi07xZhlWTc/edit?usp=sharing
