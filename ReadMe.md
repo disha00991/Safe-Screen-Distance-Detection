@@ -22,7 +22,7 @@ Face Detection -
 
 https://github.com/rajeshpachaikani/face-detection-opencv-js - Youtube video code
 
-https://docs.opencv.org/4.x/df/d6c/tutorial_js_face_detection_camera.html - OpenCV DOcumentation
+https://docs.opencv.org/4.x/df/d6c/tutorial_js_face_detection_camera.html - OpenCV Documentation
 
 
 ### Project Proposal Presentation 
