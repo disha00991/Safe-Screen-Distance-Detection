@@ -1,3 +1,21 @@
+### Face Detection - 
+
+https://github.com/rajeshpachaikani/face-detection-opencv-js - Youtube video code
+
+https://docs.opencv.org/4.x/df/d6c/tutorial_js_face_detection_camera.html - OpenCV Documentation
+
+### How to start?
+
+- Make sure to have python3 installed
+- To start face detection go to src>Face Detection and run the command: python3 -m http.server
+- Next, Go to: http://localhost:8000/ and allow the tab to access web cam.
+
+
+### Project Proposal Presentation 
+https://docs.google.com/presentation/d/1LE6-_18w0pTD2-HSeKQyGohceDyNkR9ghi07xZhlWTc/edit?usp=sharing
+
+
+
 ### Important Links:
 
 [https://arxiv.org/pdf/1612.04131.pdf](https://arxiv.org/pdf/1612.04131.pdf)
@@ -18,15 +36,4 @@
 
 https://developer.chrome.com/docs/extensions/mv3/content_scripts/#programmatic
 
-Face Detection - 
 
-https://github.com/rajeshpachaikani/face-detection-opencv-js - Youtube video code
-
-https://docs.opencv.org/4.x/df/d6c/tutorial_js_face_detection_camera.html - OpenCV Documentation
-
-To start face detection go to src>Face Detection and run the command: python3 -m http.server
-go to: http://localhost:8000/ and allow the tab to access web cam.
-
-
-### Project Proposal Presentation 
-https://docs.google.com/presentation/d/1LE6-_18w0pTD2-HSeKQyGohceDyNkR9ghi07xZhlWTc/edit?usp=sharing
