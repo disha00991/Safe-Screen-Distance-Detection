@@ -18,6 +18,8 @@ https://docs.google.com/presentation/d/1LE6-_18w0pTD2-HSeKQyGohceDyNkR9ghi07xZhl
 
 ### Important Links:
 
+https://www.geeksforgeeks.org/realtime-distance-estimation-using-opencv-python/
+
 [https://arxiv.org/pdf/1612.04131.pdf](https://arxiv.org/pdf/1612.04131.pdf)
 
 [https://www.webmd.com/eye-health/computer-vision-syndrome#:~:text=Eye%20problems%20caused%20by%20computer,have%20at%20least%20some%20symptoms](https://www.webmd.com/eye-health/computer-vision-syndrome#:~:text=Eye%20problems%20caused%20by%20computer,have%20at%20least%20some%20symptoms)
