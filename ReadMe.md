@@ -4,7 +4,7 @@ https://github.com/rajeshpachaikani/face-detection-opencv-js - Youtube video cod
 
 https://docs.opencv.org/4.x/df/d6c/tutorial_js_face_detection_camera.html - OpenCV Documentation
 
-### How to start?
+### How to start???
 
 - Make sure to have python3 installed
 - To start face detection go to src>Face Detection and run the command: python3 -m http.server
