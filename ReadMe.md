@@ -10,6 +10,15 @@ https://docs.opencv.org/4.x/df/d6c/tutorial_js_face_detection_camera.html - Open
 - To start face detection go to src>Face Detection and run the command: python3 -m http.server
 - Next, Go to: http://localhost:8000/ and allow the tab to access web cam.
 
+### Github commands
+- Pull: git pull
+- Push: 
+> git add .
+> git commit -m"updated xyz"
+> git push
+
+- To go to another branch 
+> git checkout <name of branch>
 
 ### Project Proposal Presentation 
 https://docs.google.com/presentation/d/1LE6-_18w0pTD2-HSeKQyGohceDyNkR9ghi07xZhlWTc/edit?usp=sharing
