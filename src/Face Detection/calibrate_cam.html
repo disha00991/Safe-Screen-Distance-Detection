@@ -1,3 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calibrate Camera</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="background" class="o_image">
+            <img id="sample" src="ref_image.png" alt="calibrate camera" width="100%" />            
+        </div>
+        <div class="p_image">
+            <canvas id="imageInit"></canvas>
+            <canvas id="imageResult" style="display: block;width: 100%;"></canvas>
+        </div>
+    </div>
+    <div class="b_container">
+        <button id="apply">Apply</button>
+    </div>
+</body>
+<script src="utils.js" type="text/javascript"></script>
+<script type="text/javascript">
+
 const utils = new Utils('errorMessage');
 const imageUsed = document.getElementById('sample').getAttribute('src')
 console.log(imageUsed)
@@ -44,11 +70,13 @@ const setUpApplyButton = function () {
             src.delete(); gray.delete(); faceCascade.delete();
         }); 
 }
-applyButton.setAttribute('disabled','true')
-applyButton.onclick = setUpApplyButton
-utils.loadOpenCv(() => {
-    
+    applyButton.setAttribute('disabled','true')
+    applyButton.onclick = setUpApplyButton
+    utils.loadOpenCv(() => {
+        
     setTimeout(function () { 
         applyButton.removeAttribute('disabled');
     },500)
 });
+</script>
+</html>
