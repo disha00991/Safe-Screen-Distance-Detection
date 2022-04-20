@@ -1,4 +1,172 @@
+<!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Face Detection Javascript</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="background" class="o_image">
+            <img id="sample" src="ref_image.png" alt="facedetection" width="100%" />
+            
+        </div>
+        <div class="p_image">
+            <canvas id="imageInit"></canvas>
+            <canvas id="imageResult" style="display: block;width: 100%;"></canvas>
+        </div>
+    </div>
+    <div class="b_container">
+        <button id="apply">Apply</button>
+    </div>
+</body>
+<script src="utils.js" type="text/javascript"></script>
+<script src="facedetection.js" type="text/javascript"></script>
+</html>
+<!-- https://www.jiosaavn.com/artist/shah-rukh-khan-songs/tkXMVGTn-A0_
+https://c.saavncdn.com/artists/Shah_Rukh_Khan.jpg
+
+https://etcanada.com/photos/120442/take-two-celebs-who-look-just-like-another-celeb/#image-292405
+
+-->
+
+
+
+
+<!-- <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opencv JS</title>
+    <script async src="js/opencv.js" onload="openCvReady();"></script>
+    <script src="js/utils.js"></script>
+</head>
+
+<body>
+     <video id="cam_input" height="480" width="640"></video> 
+    <img id="ref_image" src="./ref_image.png" height="480" width="640"/> 
+    <canvas id="canvas_output"></canvas>
+</body>
+<script type="text/JavaScript">
+function openCvReady() {
+  cv['onRuntimeInitialized']=()=>{
+    const imageUsed = document.getElementById('ref_image').getAttribute('src')
+    
+    let faces = new cv.RectVector();
+    let eyes = new cv.RectVector();
+    let face_cascade = new cv.CascadeClassifier();
+    let eye_cascade = new cv.CascadeClassifier();
+    let eyeCascadeFile = 'haarcascade_eye.xml';
+    let utils = new Utils('errorMessage');
+    let faceCascadeFile = 'haarcascade_frontalface_default.xml'; // path to xml
+    document.getElementById('canvas_output').style.display = "none"
+    utils.loadImageToCanvas(imageUsed, 'canvas_output');
+    utils.createFileFromUrl(faceCascadeFile, faceCascadeFile, () => {
+        face_cascade.load(faceCascadeFile); // in the callback, load the cascade from file 
+        utils.createFileFromUrl(eyeCascadeFile, eyeCascadeFile, () => {
+        eye_cascade.load(eyeCascadeFile); // in the callback, load the cascade from file 
+        });
+    });
+
+
+    const FPS = 24;
+    // distance from camera to object(face) measured centimeter
+    const Known_distance = 38.1
+ 
+    // width of face in the real world or Object Plane centimeter
+    const Known_width = 14.3
+    
+    function distance_between_eyes(gray) {
+        ipd = 0  // making ipd zero       
+        // detecting face in the image        
+        try{
+            face_cascade.detectMultiScale(gray, faces, 1.1, 3, 0);
+            console.log(faces.size());
+        }catch(err){
+            console.log(err);
+        }
+
+        // looping through the faces detected in the image
+        // and finding IPD(inter pupillary distance) for each face  
+        for (let i = 0; i < faces.size(); ++i){
+            let face = faces.get(i);
+            let roiGray = gray.roi(face);
+            eye_cascade.detectMultiScale(roiGray, eyes);
+
+            ipd = ((eyes.get(0).x - eyes.get(1).x)**2 + (eyes.get(0).y - eyes.get(1).y)**2)**0.5; // find interpupillary distance
+            
+            roiGray.delete();
+        }
+        console.log("IPD(pixels):"+ipd);
+        // return the IPD in pixel
+        return ipd;
+    }
+    // find focal length in pixels
+    function find_focal_length() {
+        // reading reference_image from directory
+        let src = cv.imread('canvas_output');
+        let gray = new cv.Mat();
+        cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
+ 
+        // find the face width(pixels) in the reference_image
+        ref_image_face_width = distance_between_eyes(gray)
+        
+        // # get the focal by calling "Focal_Length_Finder"
+        // # face width in reference(pixels),
+        // # Known_distance(centimeters),
+        // # known_width(centimeters)
+        focal_length = (ref_image_face_width * Known_distance) / Known_width;
+        // Known_distance, Known_width, ref_image_face_width = measured_distance, real_width, width_in_rf_image
+        console.log("focal length(pixels):"+focal_length);
+    }
+
+    // schedule first one.
+    setTimeout(find_focal_length, 0);
+  };
+}
+</script>
+
+</html>
+
+
+
+
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -10,6 +178,7 @@
 
 <body>
     <video id="cam_input" height="480" width="640"></video>
+    <img id="ref_image" src="./ref_image.png" height="480" width="640"/> 
     <canvas id="canvas_output"></canvas>
 </body>
 <script type="text/JavaScript">
@@ -27,9 +196,12 @@ function openCvReady() {
     let src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
     let dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
     let gray = new cv.Mat();
+    let gray_ref = new cv.Mat();
     let cap = new cv.VideoCapture(cam_input);
     let faces = new cv.RectVector();
+    let faces_ref = new cv.RectVector();
     let eyes = new cv.RectVector();
+    let eyes_ref = new cv.RectVector();
     let face_cascade = new cv.CascadeClassifier();
     let eye_cascade = new cv.CascadeClassifier();
     let eyeCascadeFile = 'haarcascade_eye.xml';
@@ -44,6 +216,59 @@ function openCvReady() {
 
 
     const FPS = 24;
+    // distance from camera to object(face) measured centimeter
+    const Known_distance = 38.1
+ 
+    // width of face in the real world or Object Plane centimeter
+    const Known_width = 14.3
+    
+    function distance_between_eyes(image) {
+        face_width = 0  // making face width to zero
+ 
+        // converting color image to gray scale image
+        cv.cvtColor(image, gray_ref, cv.COLOR_RGBA2GRAY, 0);
+ 
+        // detecting face in the image        
+        try{
+            face_cascade.detectMultiScale(gray_ref, faces_ref, 1.1, 3, 0);
+            console.log(faces_ref.size());
+        }catch(err){
+            console.log(err);
+        }
+        ipd = 0;
+        // looping through the faces detected in the image
+        // and finding IPD(inter pupillary distance) for each face  
+        for (let i = 0; i < faces_ref.size(); ++i){
+            let face = faces_ref.get(i);
+            let roiGray = gray_ref.roi(face);
+            eye_cascade.detectMultiScale(roiGray, eyes_ref);
+
+            ipd = ((eyes_ref.get(0).x - eyes_ref.get(1).x)**2 + (eyes_ref.get(0).y - eyes_ref.get(1).y)**2)**0.5; // find interpupillary distance
+            
+            roiGray.delete();
+        }
+        console.log("IPD(pixels):"+ipd);
+        // return the IPD in pixel
+        return ipd;
+    }
+    // find focal length in pixels
+    function find_focal_length() {
+        // reading reference_image from directory
+        ref_image = cv.imread('ref_image');
+ 
+        // find the face width(pixels) in the reference_image
+        ref_image_face_width = distance_between_eyes(ref_image)
+        
+        // # get the focal by calling "Focal_Length_Finder"
+        // # face width in reference(pixels),
+        // # Known_distance(centimeters),
+        // # known_width(centimeters)
+        focal_length = (ref_image_face_width * Known_distance) / Known_width;
+        // Known_distance, Known_width, ref_image_face_width = measured_distance, real_width, width_in_rf_image
+        console.log("focal length(pixels):"+focal_length);
+    }
+
+    find_focal_length();
     function processVideo() {
         let begin = Date.now();
         cap.read(src);
@@ -79,11 +304,11 @@ function openCvReady() {
         // schedule next one.
         let delay = 1000/FPS - (Date.now() - begin);
         setTimeout(processVideo, delay);
-}
+    }
 // schedule first one.
-setTimeout(processVideo, 0);
+// setTimeout(processVideo, 0);
   };
 }
 </script>
 
-</html>
+</html> -->
