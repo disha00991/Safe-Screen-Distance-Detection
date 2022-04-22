@@ -27,6 +27,8 @@ https://docs.google.com/presentation/d/1LE6-_18w0pTD2-HSeKQyGohceDyNkR9ghi07xZhl
 
 ### Important Links:
 
+https://ieeexplore.ieee.org/document/6825217?arnumber=6825217
+
 https://www.geeksforgeeks.org/realtime-distance-estimation-using-opencv-python/
 
 [https://arxiv.org/pdf/1612.04131.pdf](https://arxiv.org/pdf/1612.04131.pdf)
