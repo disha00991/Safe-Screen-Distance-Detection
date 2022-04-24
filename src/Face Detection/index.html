@@ -9,14 +9,8 @@
 </head>
 
 <body>
-    <input type="text" id="currentTime">
     <video id="cam_input" height="480" width="640"></video>
     <canvas id="canvas_output"></canvas>
-    <script>
-        let start = Date.now()
-        let time = ((Date.now() - start )/ 6000) + ":" + ((Date.now() - start) / 1000)
-          document.getElementById("currentTime").value = time;
-    </script>
 </body>
 <script src="js/main.js"></script>
 </html>
