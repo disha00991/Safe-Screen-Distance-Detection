@@ -1,61 +1,40 @@
-body{
-    margin:0;
-    padding: 0;
-}
-.container{
-    display: flex;
-}
-.container .o_image{
-    width: 50%;
-    border-right: 1px solid;
-}
-.container .p_image{
-    width: 50%;
-    border-left: 1px solid;
-    text-align: center;
-}
-#imageInit {
-    display: none;
-}
-span{
-    display: block;
-    text-align: center;
-    background-color: blue;
-    color:white;
-    padding: 5px;
-    margin-bottom: 5px;; 
-}
-img{
-    border: 1px solid blue;
-}
-.b_container{
-    text-align: center;
-    width: 100%;
-}
-button{
-    width: 80px;
-    height: 30px;
-    border: none;
-    background-color: coral;
-    
-}
-svg {
-    position: absolute;
+    /* The Modal (background) */
+.netra-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 25%;
     top: 0;
-    left: 0;
+    width: 50%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
   }
   
-  .line {
-    stroke: blue;
-    stroke-width: 0.7px;
-    stroke-linecap: square;
+  /* netra-Modal Content/Box */
+  .netra-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+  .netra-img {
+    margin-left: 35%;
+    width: 30%;
   }
   
-  .handle {
-    fill: blue;
-    pointer-events: all;
-    stroke:blue;
-    stroke-width: 2px;
-    cursor: move;
-    opacity: 0.8;
+  /* The Close Button */
+  .netra-modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .netra-modal-close:hover,
+  .netra-modal-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
   }
