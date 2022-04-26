@@ -1,0 +1,19 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netra</title>
+    <link rel="stylesheet" href="style.css"> 
+    <script async src="js/opencv.js" onload="openCvReady();"></script>
+    <script src="js/utils.js"></script>
+</head>
+
+<body>
+    Time Spent looking at screen: <div class="netra-time-passed"></div>
+    <!-- To make these visible, go to style.css and remove visibility: hidden for video and canvas -->
+    <video class="netra-video" id="cam_input" height="480" width="640"></video>
+    <canvas class="netra-canvas" id="canvas_output"></canvas>
+</body>
+<script src="js/main.js"></script>
+</html>

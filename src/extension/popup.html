@@ -1,7 +1,24 @@
-<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netra</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+
+<body>
+    <button id="changeColor">Activate</button>
+    Time Spent looking at screen: <div class="netra-time-passed"></div>
+    <!-- To make these visible, go to style.css and remove visibility: hidden for video and canvas -->
+    <video class="netra-video" id="cam_input" height="48" width="64"></video>
+    <canvas class="netra-canvas" id="canvas_output"></canvas>
+</body>
+<script src="popup.js"></script>
+</html>
+
+<!-- <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <button id="changeColor">Activate</button>
@@ -9,3 +26,5 @@
     <script src="popup.js"></script>
   </body>
 </html>
+
+<html lang="en"> -->
