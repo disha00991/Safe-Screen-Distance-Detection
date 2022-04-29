@@ -10,13 +10,13 @@
     overflow: auto; /* Enable scroll if needed */
   }
 
-  .netra-video {
+  /* .netra-video {
     visibility: hidden;
   }
   
   .netra-canvas {
     visibility: hidden;
-  }
+  } */
 
   /* netra-Modal Content/Box */
   .netra-modal-content {

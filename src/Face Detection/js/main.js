@@ -20,7 +20,7 @@ function openCvReady() {
     let eye_cascade = new cv.CascadeClassifier();
     let eyeCascadeFile = 'haarcascade_eye.xml';
     let utils = new Utils('errorMessage');
-    let timeOnScreen = 0;    
+    let timeOnScreen = 0;
     var modal = document.createElement('div');
 
     let faceCascadeFile = 'haarcascade_frontalface_default.xml'; // path to xml
@@ -32,15 +32,18 @@ function openCvReady() {
     });
 
     const ratio = Math.round((screen.height * screen.width) / (video.height * video.width)) // ratio to which the pixels should be scaled down
-    const ipd_rand = Math.random() * ((260.78 / ratio) - (226.77 / ratio) + 1) + (226.77 / ratio)  //ipd means: 61.1±3.5 mm in women and 63.6±3.9 mm
-    const ipd_ref = ipd_rand.toFixed(2) //average ipd of human in pixels with reference to the size of the canvas - pixels
-    console.log(ipd_rand + "ipd_rand");
+    const ipd_rand = 255.77 / ratio; // Math.random() * ((260.78 / ratio) - (226.77 / ratio) + 1) + (226.77 / ratio)  
+    const ipd_ref = ipd_rand.toFixed(4) //average ipd of human in pixels with reference to the size of the canvas - pixels
+    console.log(ipd_ref + "ipd_ref");
     const FPS = 24;
     const Known_distance = 38.1 // in the reference image - cms
-    const Known_safe_distance = 30 //should be 51, but making it 35 to account for errors in finding distance 
+    const Known_IPD = 6 //cm
+    const avg_human_IPD = 6.3 //ipd: 61.1±3.5 mm in women and 63.6±3.9 mm
+    const Known_safe_distance = 40 //should be 51, but making it 35 to account for errors in finding distance 
     const found_focal_length = 1280 // pixels
     let dist_vals = [] // in order to store the distances and take average of the first 5 to yield more accurate results
     let isPopupOpen = false
+    let emergencyWindow = null;
 
     function updateTimePassed() {
       var timeOnScreenDiv = document.getElementsByClassName('netra-time-passed')[0];
@@ -49,12 +52,60 @@ function openCvReady() {
       } else if (timeOnScreen < 60 * 60 * 1000) {
         timeOnScreenDiv.innerHTML = (timeOnScreen / (60 * 1000)).toFixed(0) + " min";
       } else {
-        let mins = timeOnScreen / (60*1000);
+        let mins = timeOnScreen / (60 * 1000);
         timeOnScreen.innerHTML = (mins / 60).toFixed(1) + " hr " + mins % 60 + " min"
       }
     }
+    function openEmergencyWindow() {
+      const winHtml = `<!DOCTYPE html>
+    <html>
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" type="text/css" href="style.css"> 
+            <title>Message from Netra</title>
+        </head>
+        <body>
+        <div class="netra-modal">
+        <div class="netra-modal-content">
+        <p class="netra-info">Please stay further from screen for happy eyes! :)</p>
+        <img class="netra-img" src='./js/icu.gif' width='50px'/>
+      </div>
+      </div>
+        </body>
+    </html>`;
+
+      const winUrl = URL.createObjectURL(
+        new Blob([winHtml], { type: "text/html" })
+      );
+
+      emergencyWindow = window.open(
+        winUrl,
+        "win",
+        `width=800,height=400,screenX=200,screenY=200`
+      );
+    }
+
+    function changeContentOnEmergencyWindow() {
+      const newHtml = `
+      <div class="netra-modal-content">
+        <span class="netra-modal-close">&times;</span>
+        <p class="netra-info">Very Nice! Make sure to maintain this distance :)</p>
+        <img class="netra-img" src='http://127.0.0.1:5555/Face%Detection/js/safedistance.gif' width='50px'/>
+      </div>`;
+      emergencyWindow.document.getElementsByClassName('netra-modal').innerHTML = newHtml;
+      setTimeout(() => {
+        if (emergencyWindow && !emergencyWindow.closed) {
+          emergencyWindow.close();
+          emergencyWindow = null;
+        }
+      }, 3500);
+    }
 
     function whenNotInSafeDistance() {
+      if (document.hidden) { //if user is on another tab
+        openEmergencyWindow();
+      }
       modal.setAttribute('class', "netra-modal netra-modal-close");
       modal.innerHTML = `
           <div class="netra-modal-content">
@@ -84,6 +135,9 @@ function openCvReady() {
     }
 
     function whenSafeDistanceReached() {
+      if (document.hidden && emergencyWindow && !emergencyWindow.closed) { //if user is on another tab
+        changeContentOnEmergencyWindow();
+      }
       modal.innerHTML = `
           <div class="netra-modal-content">
             <span class="netra-modal-close">&times;</span>
@@ -143,10 +197,10 @@ function openCvReady() {
           if (eye_coord.length == 2) { //==2 so that no distance is predicted when more than 2 eyes are detected (nostrils, other circles etc)
             timeOnScreen += 500;
             updateTimePassed();
-            let dist = ((eye_coord[1][0] - eye_coord[0][0]) ** 2 + (eye_coord[1][1] - eye_coord[0][1]) ** 2) ** 0.5; //Pythagorus formula to find IPD
-            console.log("ipd " + dist.toFixed(2) + " pixels");
+            let estimated_ipd = ((eye_coord[1][0] - eye_coord[0][0]) ** 2 + (eye_coord[1][1] - eye_coord[0][1]) ** 2) ** 0.5; //Pythagorus formula to find IPD in pixels
+            console.log("ipd " + estimated_ipd.toFixed(2) + " pixels");
 
-            let distance_from_screen = (ipd_ref / dist) * Known_distance; //Calculating distance from screen using similar triangles method
+            let distance_from_screen = (ipd_ref * Known_distance * avg_human_IPD) / (Known_IPD * estimated_ipd); //Calculating distance from screen using similar triangles method
 
             console.log("distance from screen: " + distance_from_screen.toFixed(2) + " cms");
             // console.log(dist_vals)
@@ -154,7 +208,7 @@ function openCvReady() {
 
             dist_vals.push(distance_from_screen);
             // Taking the average of five values
-            if (dist_vals.length == 5) {
+            if (dist_vals.length == 3) {
               let mean_dist = 0;
               for (let i = 0; i < dist_vals.length; i++) {
                 mean_dist += dist_vals[i] / dist_vals.length;
