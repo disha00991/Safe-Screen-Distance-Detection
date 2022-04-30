@@ -39,7 +39,7 @@ function openCvReady() {
     const Known_distance = 38.1 // in the reference image - cms
     const Known_IPD = 6 //cm
     const avg_human_IPD = 6.3 //ipd: 61.1±3.5 mm in women and 63.6±3.9 mm
-    const Known_safe_distance = 40 //should be 51, but making it 35 to account for errors in finding distance 
+    const Known_safe_distance = 30 //should be 51, but making it 35 to account for errors in finding distance 
     const found_focal_length = 1280 // pixels
     let dist_vals = [] // in order to store the distances and take average of the first 5 to yield more accurate results
     let isPopupOpen = false
@@ -49,11 +49,12 @@ function openCvReady() {
       var timeOnScreenDiv = document.getElementsByClassName('netra-time-passed')[0];
       if (timeOnScreen < 60000) {
         timeOnScreenDiv.innerHTML = (timeOnScreen / 1000).toFixed(0) + " sec";
-      } else if (timeOnScreen < 60 * 60 * 1000) {
-        timeOnScreenDiv.innerHTML = (timeOnScreen / (60 * 1000)).toFixed(0) + " min";
+      } else if (timeOnScreen < 60 * 60 * 1000) { 90*1000
+        let secs = (timeOnScreen / 1000).toFixed(0);
+        timeOnScreenDiv.innerHTML =  (secs / 60).toFixed(0)+ " min " + secs % 60 + " sec";
       } else {
         let mins = timeOnScreen / (60 * 1000);
-        timeOnScreen.innerHTML = (mins / 60).toFixed(1) + " hr " + mins % 60 + " min"
+        timeOnScreen.innerHTML = (mins / 60).toFixed(0) + " hr " + mins % 60 + " min"
       }
     }
     function openEmergencyWindow() {
@@ -91,7 +92,7 @@ function openCvReady() {
       <div class="netra-modal-content">
         <span class="netra-modal-close">&times;</span>
         <p class="netra-info">Very Nice! Make sure to maintain this distance :)</p>
-        <img class="netra-img" src='http://127.0.0.1:5555/Face%Detection/js/safedistance.gif' width='50px'/>
+        <img class="netra-img" src='./js/safedistance.gif' width='60px'/>
       </div>`;
       emergencyWindow.document.getElementsByClassName('netra-modal').innerHTML = newHtml;
       setTimeout(() => {
@@ -135,14 +136,14 @@ function openCvReady() {
     }
 
     function whenSafeDistanceReached() {
-      if (document.hidden && emergencyWindow && !emergencyWindow.closed) { //if user is on another tab
+      if (emergencyWindow && !emergencyWindow.closed) { //if user is on another tab
         changeContentOnEmergencyWindow();
       }
       modal.innerHTML = `
           <div class="netra-modal-content">
             <span class="netra-modal-close">&times;</span>
             <p class="netra-info">Very Nice! Make sure to maintain this distance :)</p>
-            <img class="netra-img" src='./js/safedistance.gif' width='50px'/>
+            <img class="netra-img" src='./js/safedistance.gif' width='60px'/>
           </div>`
       setTimeout(() => {
         modal.style.display = "none";

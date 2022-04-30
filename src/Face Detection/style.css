@@ -1,27 +1,33 @@
     /* The Modal (background) */
 .netra-modal {
+  /* visibility: hidden; */
     display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
+    position: absolute; /* Stay in place */
     z-index: 1; /* Sit on top */
-    left: 25%;
+    right: 0;
     top: 0;
-    width: 50%; /* Full width */
+    width: 30%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
   }
 
-  /* .netra-video {
+  .netra-video {
     visibility: hidden;
   }
   
-  .netra-canvas {
+  /* .netra-canvas {
     visibility: hidden;
-  } */
+  }  */
+
+  .timer {
+    background-color: turquoise;
+    text-align: center;
+  }
 
   /* netra-Modal Content/Box */
   .netra-modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    /*margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
